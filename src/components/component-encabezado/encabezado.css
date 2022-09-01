@@ -1,0 +1,58 @@
+.encabezado {
+  color: white;
+  font-family: "Kanit", sans-serif;
+  padding-right: 4em;
+  align-items: center;
+  margin: 5em;
+}
+
+.encabezado .divDelTitulo {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.encabezado .divDelTitulo h1 {
+  font-size: 9em;
+}
+
+.encabezado .divDeLoDeAbajo h4 {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 2em;
+}
+.encabezado .divDeLoDeAbajo p {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 1.3em;
+  font-family: "Poppins", sans-serif;
+}
+.encabezado .divDeLoDeAbajo .segP {
+  margin-top: -0.8em;
+}
+
+.encabezado .titulo {
+  font-size: 6.5em;
+  color: #ffa323;
+}
+
+@media screen and (max-width: 900px) {
+  .encabezado {
+    padding-right: 0;
+    align-items: center;
+    margin: 1em;
+  }
+  .encabezado .divDelTitulo h1 {
+    /*font-size: 4.5em;*/
+    font-size: 500%;
+  }
+  .encabezado .divDeLoDeAbajo h4 {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 1.5em;
+  }
+  .encabezado .divDeLoDeAbajo p {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 0.9em;
+  }
+}

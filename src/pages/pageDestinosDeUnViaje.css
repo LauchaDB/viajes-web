@@ -1,0 +1,14 @@
+h1 {
+  display: flex;
+  justify-content: center;
+  color: #ffa323;
+  margin: 5% 5% 0% 5%;
+  text-transform: uppercase;
+  font-family: "Kanit", sans-serif;
+  font-size: 300%;
+}
+.ciudadDestino {
+  display: flex;
+  justify-content: center;
+  color: white;
+}
