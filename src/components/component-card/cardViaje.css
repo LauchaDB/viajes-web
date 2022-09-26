@@ -5,11 +5,12 @@
 
 .card p {
   font-weight: 500;
+  color: white;
 }
 
 .card {
+  color: white;
   display: flex;
-  color: black;
   border-radius: 2em;
   box-shadow: 10px 10px 15px #002f35;
   transition: all 0.3s ease-in;
@@ -21,14 +22,15 @@
 
 .titleCard {
   text-transform: uppercase;
+  color: white;
 }
 
 .logoMg {
-  margin-left: 70%;
+  margin-left: 0px;
 }
 
 .logoVerDestinos {
-  margin-left: 100%;
+  margin-left: 0%;
 }
 
 .imgCard {

@@ -1,10 +1,15 @@
-import Menu from "../components/component-menu/Menu.js";
-import "./pageCreateViaje.css";
-import { viajesApi } from "../api/viajesApi";
 import axios from "axios";
+import Menu from "../components/component-menu/Menu.js";
+import { useParams } from "react-router";
 import { useState } from "react";
 
-export default function PageCreateViaje() {
+export default function PageEditarViaje() {
+  const param = useParams();
+  const [nombreViaje, setNombreViaje] = useState(param.tituloViaje);
+  const [fechaViaje, setFechaViaje] = useState(param.fechaViaje);
+  const [valorViaje, setValorViaje] = useState(param.valorTotalViaje);
+  console.log(param);
+
   const guardarViaje = (e) => {
     e.preventDefault();
     const nomIng = document.getElementById("nomViaje").value;
@@ -12,48 +17,39 @@ export default function PageCreateViaje() {
     const fechIng = document.getElementById("fechaViaje").value;
     const valIng = document.getElementById("valorTotalViaje").value;
     const viaje = {
-      nombreViaje: nomIng,
+      nombreViaje: nombreViaje,
       descripViaje: descIng,
-      fecha_viaje: fechIng,
-      valorTotal_viaje: valIng,
+      fechaViaje: fechaViaje,
+      valorTotalViaje: valorViaje,
       idUs: 1,
     };
     console.log(viaje);
-
-    axios.post("http://localhost:8080/viajes/create", {
-      nombreViaje: nomIng,
+    axios.put("http://localhost:8080/viajes/actualizar/" + param.idViaje, {
+      nombreViaje: nombreViaje,
       descripViaje: descIng,
-      fechaViaje: fechIng,
-      valorTotalViaje: valIng,
+      fechaViaje: fechaViaje,
+      valorTotalViaje: valorViaje,
       idUs: 1,
     });
 
-    //axios.post("http://localhost:8080/viajes/create/", { params: { viaje } });
-    /*
-    axios.post("http://localhost:8080/viajes/create", {
-      params: {
-        nombreViaje: document.getElementById("nomViaje").value,
-        descripViaje: document.getElementById("descripViaje").value,
-        fecha_viaje: document.getElementById("fechaViaje").value,
-        valorTotal_viaje: document.getElementById("valorTotalViaje").value,
-        idUs: 1,
-      },
-    });
-    
-    
-      .then((response) => {
-        // Respuesta del servidor
-      })
-      .catch((e) => {
-        console.log(e);
-      });*/
+    /*axios.post("http://localhost:8080/viajes/create", {
+          params: { viaje },
+        }); 
+          .then((response) => {
+            // Respuesta del servidor
+          })
+          .catch((e) => {
+            console.log(e);
+          });*/
+
+    console.log("guardar viaje");
   };
 
   return (
     <div>
       <Menu />
 
-      <h1>Crea tu magnifico viaje...</h1>
+      <h1>Puedes editar tu viaje aqui...</h1>
 
       <div id="form-main">
         <div id="form-div">
@@ -63,10 +59,11 @@ export default function PageCreateViaje() {
                 name="nombreViaje"
                 type="text"
                 className="validate[required,custom[onlyLetter],length[0,100]] feedback-input"
-                placeholder="Nombre del viaje..."
+                placeholder={param.tituloViaje}
                 id="nomViaje"
                 required
-                autoComplete="off"
+                value={nombreViaje}
+                onChange={(ev) => setNombreViaje(ev.target.value)}
               />
             </p>
 
@@ -77,7 +74,9 @@ export default function PageCreateViaje() {
                 id="descripViaje"
                 placeholder="Descripcion del viaje...."
                 required
-              ></textarea>
+              >
+                {param.descripcionViaje}
+              </textarea>
             </p>
 
             <p className="name">
@@ -85,27 +84,31 @@ export default function PageCreateViaje() {
                 name="fechaViaje"
                 type="date"
                 className="length[0,100]] feedback-input"
-                placeholder="fecha del viaje..."
+                placeholder={param.fechaViaje}
                 id="fechaViaje"
                 required
+                value={fechaViaje}
+                onChange={(ev) => setFechaViaje(ev.target.value)}
               />
             </p>
 
             <p className="name">
               <input
                 name="valorViaje"
-                type="number"
-                className="feedback-input"
-                placeholder="valor del viaje..."
+                type="decimal"
+                className="length[0,100]] feedback-input"
+                placeholder={param.valorTotalViaje}
                 id="valorTotalViaje"
                 required
+                value={valorViaje}
+                onChange={(ev) => setValorViaje(ev.target.value)}
               />
             </p>
 
             <div clasNames="submit">
               <input
                 type="submit"
-                value="CREAR VIAJE"
+                value="EDITAR VIAJE"
                 id="button-blue"
                 onClick={guardarViaje}
               />

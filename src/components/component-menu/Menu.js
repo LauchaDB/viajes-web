@@ -17,10 +17,10 @@ export default function Munu() {
           </li>
           <li>
             <NavLink
-              to={"/filtrar"}
+              to={"/viajesGuardados"}
               className={({ isActive }) => (isActive ? "activo" : "")}
             >
-              Filtrar
+              Viajes Guardados
             </NavLink>
             {/*<ul class="submenu two">
                 <li><a>Submenu 1</a></li>

@@ -12,7 +12,8 @@
 }
 
 .encabezado .divDelTitulo h1 {
-  font-size: 9em;
+  font-size: 10em;
+  text-transform: capitalize;
 }
 
 .encabezado .divDeLoDeAbajo h4 {

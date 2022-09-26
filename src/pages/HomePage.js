@@ -4,6 +4,7 @@ import Encabezado from "../components/component-encabezado/Encabezado";
 import BtnNuevoViaje from "../components/component-btnNuevoViaje/BtnNuevoViaje";
 import { useEffect, useState } from "react";
 import { viajesApi } from "../api/viajesApi";
+import axios from "axios";
 
 export default function HomePage() {
   const [viajes, setViajes] = useState([]);
@@ -13,7 +14,8 @@ export default function HomePage() {
   }, []);
 
   const getViajes = async () => {
-    const resp = await viajesApi.get("http://localhost:8080/viajes");
+    console.log("pasa");
+    const resp = await axios.get("http://localhost:8080/viajes");
     setViajes(resp.data);
   };
 
