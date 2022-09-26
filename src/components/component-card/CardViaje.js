@@ -17,6 +17,21 @@ export default function CardViaje({ viaje }) {
     );
   };
 
+  const imgDeViajeGuardado = () => {
+    if (viaje.isGuardadoViaje) {
+      return (
+        <img src="https://img.icons8.com/ios-filled/30/000000/like--v1.png" />
+      );
+    } else {
+      return (
+        <img
+          id="imgMg"
+          src="https://img.icons8.com/ios/30/000000/like--v1.png"
+        />
+      );
+    }
+  };
+
   return (
     <div className="col-4 tarjetaCompleta" style={{ height: "10%" }}>
       <div className="card h-100">
@@ -50,7 +65,7 @@ export default function CardViaje({ viaje }) {
                 idviaje={viaje.idViaje}
                 tituloViaje={viaje.nombreViaje}
               >
-                <img src="https://img.icons8.com/ios-glyphs/30/000000/enter-2.png" />
+                <img src="https://img.icons8.com/ios/30/000000/enter-2.png" />
               </Link>
             </div>
 
@@ -70,22 +85,19 @@ export default function CardViaje({ viaje }) {
                 }
                 idviaje={viaje.idViaje}
               >
-                <img src="https://img.icons8.com/ios-glyphs/30/000000/pencil--v1.png" />
+                <img src="https://img.icons8.com/ios/30/000000/edit--v1.png" />
               </Link>
             </div>
 
             <div className=" logoDelete">
               <a idviaje={viaje.idViaje} onClick={eliminarViaje}>
-                <img src="https://img.icons8.com/color/30/000000/trash--v1.png" />
+                <img src="https://img.icons8.com/ios/30/000000/delete-forever--v1.png" />
               </a>
             </div>
 
             <div className=" logoMg">
               <a idviaje={viaje.idViaje} onClick={guardarViaje}>
-                <img
-                  id="imgMg"
-                  src="https://img.icons8.com/ios-glyphs/30/000000/hearts.png"
-                />
+                {imgDeViajeGuardado()}
               </a>
             </div>
           </div>
