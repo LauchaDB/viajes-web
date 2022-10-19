@@ -3,11 +3,16 @@ import CardViaje from "../components/component-card/CardViaje";
 import Encabezado from "../components/component-encabezado/Encabezado";
 import BtnNuevoViaje from "../components/component-btnNuevoViaje/BtnNuevoViaje";
 import { useEffect, useState } from "react";
-import { viajesApi } from "../api/viajesApi";
 import axios from "axios";
+import LoginButton from "../Login.js";
+import LogoutButton from "../Logout.js";
+import Profile from "../Profile.js";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
   const [viajes, setViajes] = useState([]);
+  const { isAuthenticated } = useAuth0();
 
   useEffect(() => {
     getViajes();
@@ -23,17 +28,24 @@ export default function HomePage() {
     <div>
       <Menu />
 
+      {/*{isAuthenticated ? <LogoutButton /> : <LoginButton />}
+      <Profile />*/}
       <div className="inicioPag">
         <Encabezado />
       </div>
-
       <div className="contenidoCards">
         {viajes.map((viaje) => (
           <CardViaje key={viaje.idViaje} viaje={viaje} />
         ))}
       </div>
-
-      <BtnNuevoViaje />
+      {isAuthenticated && (
+        <>
+          <BtnNuevoViaje />
+          <Link to={"/createViajeConDestinos"} className="btn btn-primary">
+            Nuevo Viaje Con Destinos
+          </Link>
+        </>
+      )}
     </div>
   );
 }

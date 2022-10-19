@@ -1,14 +1,14 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./cardViaje.css";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function CardViaje({ viaje }) {
+  const { isAuthenticated, user } = useAuth0();
   const eliminarViaje = () => {
     axios.delete("http://localhost:8080/viajes/eliminar/" + viaje.idViaje);
   };
   const guardarViaje = () => {
-    alert("guardar viaje con id: " + viaje.idViaje);
-    console.log(viaje.isGuardadoViaje);
     axios.put(
       "http://localhost:8080/viajes/viajeLike/" +
         viaje.idViaje +
@@ -29,6 +29,42 @@ export default function CardViaje({ viaje }) {
           src="https://img.icons8.com/ios/30/000000/like--v1.png"
         />
       );
+    }
+  };
+
+  const editAndDelete = () => {
+    if (isAuthenticated) {
+      if (user.email == viaje.emailUs) {
+        return (
+          <>
+            <div className=" logoEditarDestino">
+              <Link
+                to={
+                  "/editarViaje/" +
+                  viaje.idViaje +
+                  "&" +
+                  viaje.nombreViaje +
+                  "&" +
+                  viaje.descripViaje +
+                  "&" +
+                  viaje.fechaViaje +
+                  "&" +
+                  viaje.valorTotalViaje
+                }
+                idviaje={viaje.idViaje}
+              >
+                <img src="https://img.icons8.com/ios/30/000000/edit--v1.png" />
+              </Link>
+            </div>
+
+            <div className=" logoDelete">
+              <a idviaje={viaje.idViaje} onClick={eliminarViaje} href="/">
+                <img src="https://img.icons8.com/ios/30/000000/delete-forever--v1.png" />
+              </a>
+            </div>
+          </>
+        );
+      }
     }
   };
 
@@ -68,38 +104,14 @@ export default function CardViaje({ viaje }) {
                 <img src="https://img.icons8.com/ios/30/000000/enter-2.png" />
               </Link>
             </div>
-
-            <div className=" logoEditarDestino">
-              <Link
-                to={
-                  "/editarViaje/" +
-                  viaje.idViaje +
-                  "&" +
-                  viaje.nombreViaje +
-                  "&" +
-                  viaje.descripViaje +
-                  "&" +
-                  viaje.fechaViaje +
-                  "&" +
-                  viaje.valorTotalViaje
-                }
-                idviaje={viaje.idViaje}
-              >
-                <img src="https://img.icons8.com/ios/30/000000/edit--v1.png" />
-              </Link>
-            </div>
-
-            <div className=" logoDelete">
-              <a idviaje={viaje.idViaje} onClick={eliminarViaje}>
-                <img src="https://img.icons8.com/ios/30/000000/delete-forever--v1.png" />
-              </a>
-            </div>
-
-            <div className=" logoMg">
-              <a idviaje={viaje.idViaje} onClick={guardarViaje}>
-                {imgDeViajeGuardado()}
-              </a>
-            </div>
+            {isAuthenticated && (
+              <div className=" logoMg">
+                <a idviaje={viaje.idViaje} onClick={guardarViaje} href="/">
+                  {imgDeViajeGuardado()}
+                </a>
+              </div>
+            )}
+            {editAndDelete()}
           </div>
         </div>
       </div>

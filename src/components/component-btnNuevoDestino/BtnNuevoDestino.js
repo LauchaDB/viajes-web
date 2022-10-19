@@ -1,5 +1,4 @@
 import React from "react";
-import "./btnNuevoDestino.css";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 
 export default function BtnNuevoDestino({ idViaje }) {

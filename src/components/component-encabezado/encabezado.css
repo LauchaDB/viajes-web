@@ -9,6 +9,7 @@
 .encabezado .divDelTitulo {
   display: flex;
   justify-content: flex-end;
+  margin-left: 100%;
 }
 
 .encabezado .divDelTitulo h1 {

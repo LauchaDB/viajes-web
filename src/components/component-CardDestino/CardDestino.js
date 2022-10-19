@@ -1,8 +1,11 @@
 import axios from "axios";
 import "./cardDestino.css";
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+import { viajesApi } from "../../api/viajesApi";
 
 export default function CardDestino({ destino }) {
+  const { user, isAuthenticated } = useAuth0();
   const eliminarDestino = () => {
     axios.delete("http://localhost:8080/destinos/eliminar/" + destino.idDest);
   };
@@ -19,29 +22,33 @@ export default function CardDestino({ destino }) {
           <h5 className="titleCard">{destino.ciudadDest}</h5>
           <p>{destino.descripDest}</p>
           <div className="d-flex flex-row justify-content-end">
-            <div className=" logoEditarDestino">
-              <Link
-                to={
-                  "/editarDestino/" +
-                  destino.idDest +
-                  "&" +
-                  destino.provinciaDest +
-                  "&" +
-                  destino.ciudadDest +
-                  "&" +
-                  destino.descripDest +
-                  "&" +
-                  destino.idViaje
-                }
-              >
-                <img src="https://img.icons8.com/ios-glyphs/30/000000/pencil--v1.png" />
-              </Link>
-            </div>
-            <div className=" logoDelete">
-              <a iddestino={destino.idDestino} onClick={eliminarDestino}>
-                <img src="https://img.icons8.com/ios-glyphs/30/000000/delete-forever.png" />
-              </a>
-            </div>
+            {isAuthenticated && (
+              <>
+                <div className=" logoEditarDestino">
+                  <Link
+                    to={
+                      "/editarDestino/" +
+                      destino.idDest +
+                      "&" +
+                      destino.provinciaDest +
+                      "&" +
+                      destino.ciudadDest +
+                      "&" +
+                      destino.descripDest +
+                      "&" +
+                      destino.idViaje
+                    }
+                  >
+                    <img src="https://img.icons8.com/ios-glyphs/30/000000/pencil--v1.png" />
+                  </Link>
+                </div>
+                <div className=" logoDelete">
+                  <a iddestino={destino.idDestino} onClick={eliminarDestino}>
+                    <img src="https://img.icons8.com/ios-glyphs/30/000000/delete-forever.png" />
+                  </a>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

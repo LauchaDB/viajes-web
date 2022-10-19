@@ -6,9 +6,11 @@ import { useEffect, useState } from "react";
 import { viajesApi } from "../api/viajesApi";
 import axios from "axios";
 import BtnNuevoDestino from "../components/component-btnNuevoDestino/BtnNuevoDestino";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function PageDestinosDeUnViaje() {
   const parametro = useParams();
+  const { isAuthenticated } = useAuth0();
 
   const [destinos, setDestinos] = useState([]);
 

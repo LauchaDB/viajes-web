@@ -3,10 +3,11 @@ import "./pageCreateViaje.css";
 import { viajesApi } from "../api/viajesApi";
 import axios from "axios";
 import { useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function PageCreateViaje() {
+  const { user } = useAuth0();
   const guardarViaje = (e) => {
-    e.preventDefault();
     const nomIng = document.getElementById("nomViaje").value;
     const descIng = document.getElementById("descripViaje").value;
     const fechIng = document.getElementById("fechaViaje").value;
@@ -16,17 +17,22 @@ export default function PageCreateViaje() {
       descripViaje: descIng,
       fecha_viaje: fechIng,
       valorTotal_viaje: valIng,
-      idUs: 1,
+      emailUs: user.email,
     };
     console.log(viaje);
 
-    axios.post("http://localhost:8080/viajes/create", {
-      nombreViaje: nomIng,
-      descripViaje: descIng,
-      fechaViaje: fechIng,
-      valorTotalViaje: valIng,
-      idUs: 1,
-    });
+    if (valIng > 0) {
+      axios.post("http://localhost:8080/viajes/create/" + user.email, {
+        nombreViaje: nomIng,
+        descripViaje: descIng,
+        fechaViaje: fechIng,
+        valorTotalViaje: valIng,
+        emailUs: user.email,
+      });
+    } else {
+      e.preventDefault();
+      alert("ingrese un valor valido");
+    }
 
     //axios.post("http://localhost:8080/viajes/create/", { params: { viaje } });
     /*
@@ -94,7 +100,7 @@ export default function PageCreateViaje() {
             <p className="name">
               <input
                 name="valorViaje"
-                type="number"
+                type="decimal"
                 className="feedback-input"
                 placeholder="valor del viaje..."
                 id="valorTotalViaje"
@@ -108,6 +114,7 @@ export default function PageCreateViaje() {
                 value="CREAR VIAJE"
                 id="button-blue"
                 onClick={guardarViaje}
+                href={"/"}
               />
               <div className="ease"></div>
             </div>

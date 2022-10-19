@@ -1,7 +1,12 @@
+import { User } from "@auth0/auth0-react";
 import { NavLink, BrowserRouter as Router } from "react-router-dom";
 import "./menu.css";
+import { useAuth0 } from "@auth0/auth0-react";
+import LogoutButton from "../../Logout";
+import LoginButton from "../../Login";
 
 export default function Munu() {
+  const { user, isAuthenticated } = useAuth0();
   return (
     <header className="r">
       <nav className="navbar-menu">
@@ -15,18 +20,23 @@ export default function Munu() {
               Home
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to={"/viajesGuardados"}
-              className={({ isActive }) => (isActive ? "activo" : "")}
-            >
-              Viajes Guardados
-            </NavLink>
-            {/*<ul class="submenu two">
+          {isAuthenticated && (
+            <>
+              <li>
+                <NavLink
+                  to={"/viajesGuardados"}
+                  className={({ isActive }) => (isActive ? "activo" : "")}
+                >
+                  Viajes Guardados
+                </NavLink>
+                {/*<ul class="submenu two">
                 <li><a>Submenu 1</a></li>
                 <li><a>Submenu 2</a></li>
             </ul>*/}
-          </li>
+              </li>
+            </>
+          )}
+
           <li>
             <NavLink
               to={"/explorar"}
@@ -39,30 +49,25 @@ export default function Munu() {
                 <li><a>Submenu 2</a></li>
             </ul>*/}
           </li>
-          <li>
-            <NavLink
-              to={"/clasificar"}
-              className={({ isActive }) => (isActive ? "activo" : "")}
-            >
-              Clasificar
-            </NavLink>
-            {/*<ul class="submenu four">
-                <li><a>SubMenu 1</a></li>
-                <li><a>SubMenu 2</a></li>
-            </ul>*/}
-          </li>
+
           <li>
             <NavLink
               to={"/cuenta"}
               className={({ isActive }) => (isActive ? "activo" : "")}
             >
-              <img src="https://img.icons8.com/ios-filled/30/000000/user-male-circle.png" />
+              {isAuthenticated && (
+                <img src={user.picture} className="imgPerfilUs" />
+              )}
+              {!isAuthenticated && (
+                <img src="https://img.icons8.com/ios-glyphs/30/000000/user--v1.png" />
+              )}
             </NavLink>
             {/*<ul class="submenu five">
                 <li><a>Contact me</a></li>
                 <li><a>About me</a></li>
             </ul>*/}
           </li>
+          <li>{isAuthenticated ? <LogoutButton /> : <LoginButton />}</li>
         </ul>
         {/* Mini Menu */}
         <nav className="navbar-mini-menu">

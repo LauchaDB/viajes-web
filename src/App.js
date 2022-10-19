@@ -16,6 +16,8 @@ import PageEditarViaje from "./pages/PageEditarViaje";
 import PageEditarDestino from "./pages/PageEditarDestino";
 import PageViajesGuardados from "./pages/PageViajesGuardados";
 import PageExplorar from "./pages/PageExplorar";
+import PagePerfilUsuario from "./pages/PagePerfilUsuario";
+import PageCreateViajeConDestinos from "./pages/PageCreateViajeConDestinos";
 
 function App() {
   return (
@@ -26,6 +28,11 @@ function App() {
         <Route path="/nuevoViaje" element={<PageCreateViaje />} />
         <Route path="/viajesGuardados" element={<PageViajesGuardados />} />
         <Route path="/explorar" element={<PageExplorar />} />
+        <Route path="/cuenta" element={<PagePerfilUsuario />} />
+        <Route
+          path="/createViajeConDestinos"
+          element={<PageCreateViajeConDestinos />}
+        />
         <Route
           path="/destinos/:idViaje&:tituloViaje&:descripcionViaje"
           element={<PageDestinosDeUnViaje />}
