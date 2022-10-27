@@ -1,9 +1,30 @@
 import Menu from "../components/component-menu/Menu";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
+import { useState } from "react";
 
 export default function PageCreateViajeConDestinos() {
   const { user } = useAuth0();
+
+  let listDestinos = [];
+  const cargarDestino = (e) => {
+    e.preventDefault();
+
+    listDestinos.push({
+      provinciaDest: document.getElementById("provinciaDest").value,
+      ciudadDest: document.getElementById("ciudadDest").value,
+      descripDest: document.getElementById("descripDest").value,
+      idViaje: null,
+    });
+
+    document.getElementById("descripDest").value = " ";
+    document.getElementById("ciudadDest").value = "";
+  };
+
+  const mostrarDestino = (e) => {
+    e.preventDefault();
+    console.log(listDestinos);
+  };
 
   const guardarViaje = (e) => {
     e.preventDefault();
@@ -22,22 +43,25 @@ export default function PageCreateViajeConDestinos() {
 
     console.log(viaje);
 
-    const provIng = document.getElementById("provinciaDest").value;
-    const ciudIng = document.getElementById("ciudadDest").value;
-    const descIng = document.getElementById("descripDest").value;
+    console.log(listDestinos);
 
-    const destino = {
-      provinciaDestino: provIng,
-      ciudadDestino: ciudIng,
-      descDestino: descIng,
-    };
-
-    console.log(destino);
-
-    axios.post("http://localhost:8080/viajes/createViajeConDestino/", {
-      viaje: viaje,
-      destino: destino,
-    });
+    if (listDestinos.length > 0) {
+      axios.post(
+        "http://localhost:8080/viajes/createViajeConDestino/" +
+          nomIngViaje +
+          "/" +
+          descIngViaje +
+          "/" +
+          fechIngViaje +
+          "/" +
+          valIngViaje +
+          "/" +
+          user.email,
+        listDestinos
+      );
+    } else {
+      alert("ingrese destinos");
+    }
   };
 
   return (
@@ -150,6 +174,9 @@ export default function PageCreateViajeConDestinos() {
                 ></textarea>
               </p>
             </form>
+
+            <button onClick={cargarDestino}>Cargar destino</button>
+            <button onClick={mostrarDestino}>Mostrar destino</button>
 
             <div clasNames="submit">
               <input
