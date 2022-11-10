@@ -3,11 +3,17 @@ import "./cardDestino.css";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { viajesApi } from "../../api/viajesApi";
+import Swal from "sweetalert2";
 
 export default function CardDestino({ destino }) {
   const { user, isAuthenticated } = useAuth0();
   const eliminarDestino = () => {
     axios.delete("http://localhost:8080/destinos/eliminar/" + destino.idDest);
+    Swal.fire({
+      icon: "success",
+      title: "OK",
+      text: "El destino fue eliminado correctamente",
+    });
   };
 
   return (

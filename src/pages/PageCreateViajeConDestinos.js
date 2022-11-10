@@ -2,9 +2,23 @@ import Menu from "../components/component-menu/Menu";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { useState } from "react";
+import { useEffect } from "react";
+import Swal from "sweetalert2";
 
 export default function PageCreateViajeConDestinos() {
   const { user } = useAuth0();
+  /*
+  useEffect(() => {
+    mostrarAlerta();
+  }, []);
+*/
+  const mostrarAlerta = () => {
+    Swal.fire({
+      icon: "success",
+      title: "OK",
+      text: user.name + " su viaje con destinos fue guardado correctamente",
+    });
+  };
 
   let listDestinos = [];
   const cargarDestino = (e) => {
@@ -26,8 +40,7 @@ export default function PageCreateViajeConDestinos() {
     console.log(listDestinos);
   };
 
-  const guardarViaje = (e) => {
-    e.preventDefault();
+  const guardarViaje = () => {
     const nomIngViaje = document.getElementById("nomViaje").value;
     const descIngViaje = document.getElementById("descripViaje").value;
     const fechIngViaje = document.getElementById("fechaViaje").value;
@@ -59,8 +72,13 @@ export default function PageCreateViajeConDestinos() {
           user.email,
         listDestinos
       );
+      mostrarAlerta();
     } else {
-      alert("ingrese destinos");
+      Swal.fire({
+        icon: "error",
+        title: "ERROR",
+        text: "Ingrese algun destino",
+      });
     }
   };
 
@@ -175,8 +193,9 @@ export default function PageCreateViajeConDestinos() {
               </p>
             </form>
 
-            <button onClick={cargarDestino}>Cargar destino</button>
-            <button onClick={mostrarDestino}>Mostrar destino</button>
+            <button className="btn btn-primary" onClick={cargarDestino}>
+              ADD DESTINO
+            </button>
 
             <div clasNames="submit">
               <input

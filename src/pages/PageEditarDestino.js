@@ -9,8 +9,7 @@ export default function PageEditarDestino() {
   const [provinciaDest, setProvinciaDest] = useState(param.provinciaDest);
   const [ciudadDest, setCiudadDest] = useState(param.ciudadDest);
 
-  const guardarDestino = (e) => {
-    e.preventDefault();
+  const guardarDestino = () => {
     const provIng = document.getElementById("provinciaDest").value;
     const ciudIng = document.getElementById("ciudadDest").value;
     const descIng = document.getElementById("descripDest").value;
@@ -28,6 +27,12 @@ export default function PageEditarDestino() {
       ciudadDest: ciudadDest,
       descripDest: descIng,
       idViaje: param.idViaje,
+    });
+
+    Swal.fire({
+      icon: "success",
+      title: "OK",
+      text: "El destino fue actualizado",
     });
 
     console.log("guardar destino");

@@ -10,8 +10,7 @@ export default function PageEditarViaje() {
   const [valorViaje, setValorViaje] = useState(param.valorTotalViaje);
   console.log(param);
 
-  const guardarViaje = (e) => {
-    e.preventDefault();
+  const guardarViaje = () => {
     const nomIng = document.getElementById("nomViaje").value;
     const descIng = document.getElementById("descripViaje").value;
     const fechIng = document.getElementById("fechaViaje").value;
@@ -30,6 +29,11 @@ export default function PageEditarViaje() {
       fechaViaje: fechaViaje,
       valorTotalViaje: valorViaje,
       idUs: 1,
+    });
+    Swal.fire({
+      icon: "success",
+      title: "OK",
+      text: "El viaje fue actualizado",
     });
 
     /*axios.post("http://localhost:8080/viajes/create", {

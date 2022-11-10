@@ -4,9 +4,11 @@ import { viajesApi } from "../api/viajesApi";
 import axios from "axios";
 import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import Swal from "sweetalert2";
 
 export default function PageCreateViaje() {
   const { user } = useAuth0();
+
   const guardarViaje = (e) => {
     const nomIng = document.getElementById("nomViaje").value;
     const descIng = document.getElementById("descripViaje").value;
@@ -29,9 +31,18 @@ export default function PageCreateViaje() {
         valorTotalViaje: valIng,
         emailUs: user.email,
       });
+      Swal.fire({
+        icon: "success",
+        title: "OK",
+        text: user.name + " su viaje fue guardado correctamente",
+      });
     } else {
       e.preventDefault();
-      alert("ingrese un valor valido");
+      Swal.fire({
+        icon: "error",
+        title: "ERROR",
+        text: "Ingrese correctamnete los valores",
+      });
     }
 
     //axios.post("http://localhost:8080/viajes/create/", { params: { viaje } });

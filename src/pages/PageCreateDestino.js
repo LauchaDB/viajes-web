@@ -2,27 +2,27 @@ import Menu from "../components/component-menu/Menu.js";
 import "./pageCreateViaje.css";
 import axios from "axios";
 import { useParams } from "react-router";
+import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 export default function PageCreateDestino() {
   const param = useParams();
-  const guardarDestino = (e) => {
-    e.preventDefault();
+  const guardarDestino = () => {
     const provIng = document.getElementById("provinciaDest").value;
     const ciudIng = document.getElementById("ciudadDest").value;
     const descIng = document.getElementById("descripDest").value;
-    const destino = {
-      provinciaDest: provIng,
-      ciudadDest: ciudIng,
-      descripDest: descIng,
-      idViaje: param.idViaje,
-    };
-    console.log(destino);
 
     axios.post("http://localhost:8080/destinos/create", {
       provinciaDest: provIng,
       ciudadDest: ciudIng,
       descripDest: descIng,
       idViaje: param.idViaje,
+    });
+
+    Swal.fire({
+      icon: "success",
+      title: "OK",
+      text: "El destino fue guardado",
     });
 
     console.log("guardar destino");
@@ -92,15 +92,17 @@ export default function PageCreateDestino() {
               ></textarea>
             </p>
 
-            <div clasNames="submit">
-              <input
-                type="submit"
-                value="SEND"
-                id="button-blue"
-                onClick={guardarDestino}
-              />
-              <div className="ease"></div>
-            </div>
+            <Link to={"/"}>
+              <div clasNames="submit">
+                <input
+                  type="submit"
+                  value="SEND"
+                  id="button-blue"
+                  onClick={guardarDestino}
+                />
+                <div className="ease"></div>
+              </div>
+            </Link>
           </form>
         </div>
       </div>

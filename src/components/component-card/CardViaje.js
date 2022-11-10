@@ -2,10 +2,17 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "./cardViaje.css";
 import { useAuth0 } from "@auth0/auth0-react";
+import Swal from "sweetalert2";
 
 export default function CardViaje({ viaje }) {
   const { isAuthenticated, user } = useAuth0();
+
   const eliminarViaje = () => {
+    Swal.fire({
+      icon: "success",
+      title: "OK",
+      text: "El viaje fue eliminado",
+    });
     axios.delete("http://localhost:8080/viajes/eliminar/" + viaje.idViaje);
   };
   const guardarViaje = () => {
